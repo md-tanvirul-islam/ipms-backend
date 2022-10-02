@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([ 'middleware' => 'api', 'namespace' => 'App\Http\Controllers'], function ($router) {
     Route::post('login', [ApiAuthController::class, 'login']);
+    Route::post('registration', [ApiAuthController::class, 'registration']);
     Route::post('logout', [ApiAuthController::class, 'logout']);
     Route::post('refresh', [ApiAuthController::class, 'refresh']);
     Route::post('user', [ApiAuthController::class, 'user']);

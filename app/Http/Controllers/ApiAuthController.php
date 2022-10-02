@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegistrationRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +22,7 @@ class ApiAuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
 
@@ -27,6 +30,10 @@ class ApiAuthController extends Controller
             return $this->respondWithToken($token);
         }
         return response()->json(['error' => 'Credentials does not match.'], 401);
+    }
+
+    public function registration(RegistrationRequest $request){
+        User::create($request->all());
     }
 
     /**
