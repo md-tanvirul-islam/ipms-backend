@@ -21,14 +21,11 @@ class ApiAuthController extends Controller
      */
     public function login(Request $request)
     {
-        dd('ok');
-
         $credentials = $request->only('email', 'password');
 
         if ($token = $this->guard()->attempt($credentials)) {
             return $this->respondWithToken($token);
         }
-
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
