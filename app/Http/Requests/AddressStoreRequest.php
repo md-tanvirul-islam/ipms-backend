@@ -26,8 +26,8 @@ class AddressStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'ip'    => ['required', 'string'],
-            'label' => ['required', 'string']
+            'ip'    => ['required', 'ip', 'unique:addresses,ip'],
+            'label' => ['required', 'string', 'unique:addresses,label']
         ];
     }
 

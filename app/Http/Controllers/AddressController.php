@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddressStoreRequest;
 use App\Models\Address;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -27,7 +28,7 @@ class AddressController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddressStoreRequest $request)
     {
         DB::beginTransaction();
         try {
@@ -39,6 +40,11 @@ class AddressController extends Controller
             Log::error("$e");
             return errorResponse(500, null, 'System Error.');
         }
+    }
+
+    public function show(Address $address)
+    {
+        return successResponse(200, $address, 'Ip Address');
     }
 
     /**

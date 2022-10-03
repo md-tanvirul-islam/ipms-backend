@@ -27,7 +27,7 @@ class AddressUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'ip'    => ['required', 'string', Rule::unique('addresses')->ignore($this->address->id)],
+            'ip'    => ['required', 'ip', Rule::unique('addresses')->ignore($this->address->id)],
             'label' => ['required', 'string', Rule::unique('addresses')->ignore($this->address->id)]
         ];
     }
