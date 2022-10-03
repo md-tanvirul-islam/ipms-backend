@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AddressController extends Controller
 {
@@ -14,17 +18,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return successResponse(200, Address::all(), 'Ip Address List');
     }
 
     /**
@@ -35,29 +29,16 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Address $address)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Address $address)
-    {
-        //
+        DB::beginTransaction();
+        try {
+            $outlet =Address::create($request->all());
+            DB::commit();
+            return successResponse(201, $outlet, 'Create Successfully.');
+        } catch (Exception | QueryException $e) {
+            DB::rollback();
+            Log::error("$e");
+            return errorResponse(500, null, 'System Error.');
+        }
     }
 
     /**
@@ -69,17 +50,15 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Address $address)
-    {
-        //
+        DB::beginTransaction();
+        try {
+            $address->update($request->all());
+            DB::commit();
+            return successResponse(200, $address, 'Updated successfully.');
+        } catch (Exception | QueryException $e) {
+            DB::rollback();
+            Log::error("$e");
+            return errorResponse(500, null, 'System Error.');
+        }
     }
 }
