@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddressStoreRequest;
+use App\Http\Requests\AddressUpdateRequest;
 use App\Models\Address;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -54,7 +55,7 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Address $address)
+    public function update(AddressUpdateRequest $request, Address $address)
     {
         DB::beginTransaction();
         try {
