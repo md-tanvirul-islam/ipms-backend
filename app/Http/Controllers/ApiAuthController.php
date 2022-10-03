@@ -12,7 +12,7 @@ class ApiAuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'registration']]);
     }
 
     /**
@@ -22,7 +22,7 @@ class ApiAuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
@@ -34,6 +34,7 @@ class ApiAuthController extends Controller
 
     public function registration(RegistrationRequest $request){
         User::create($request->all());
+        return $this->login($request);
     }
 
     /**
