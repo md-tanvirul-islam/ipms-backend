@@ -22,8 +22,8 @@ Route::group([ 'middleware' => 'api', 'namespace' => 'App\Http\Controllers'], fu
     Route::post('registration', [ApiAuthController::class, 'registration']);
     Route::post('logout', [ApiAuthController::class, 'logout']);
     Route::post('refresh', [ApiAuthController::class, 'refresh']);
-    Route::post('user', [ApiAuthController::class, 'user']);
-    Route::get(' ', function(){
+    Route::get('user', [ApiAuthController::class, 'user']);
+    Route::get('/audits', function(){
         return successResponse(200, Audit::all(), 'Audit List');
     });
 });
