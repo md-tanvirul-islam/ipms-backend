@@ -1,3 +1,4 @@
+# IPMS Backend
 ## Instructions to Install the Project
 - [Download or clone the project form Github. Click on this link](https://github.com/md-tanvirul-islam/ipms-backend)
 - Make a copy of the .env.example file in your project directory and update the database credentials according to your database.
