@@ -64,7 +64,9 @@ class AddressController extends Controller
     {
         DB::beginTransaction();
         try {
-            $address->update($request->all());
+            $address->update([
+                'label' => $request->label
+            ]);
             DB::commit();
             return successResponse(200, $address, 'Updated successfully.');
         } catch (Exception | QueryException $e) {

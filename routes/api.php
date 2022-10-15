@@ -17,7 +17,7 @@ use OwenIt\Auditing\Models\Audit;
 |
 */
 
-Route::group([ 'middleware' => 'api', 'namespace' => 'App\Http\Controllers'], function () {
+Route::group([ 'middleware' => 'api'], function () {
     Route::post('login', [ApiAuthController::class, 'login']);
     Route::post('registration', [ApiAuthController::class, 'registration']);
     Route::post('logout', [ApiAuthController::class, 'logout']);
@@ -26,8 +26,10 @@ Route::group([ 'middleware' => 'api', 'namespace' => 'App\Http\Controllers'], fu
     Route::get('/audits', function(){
         return successResponse(200, Audit::all(), 'Audit List');
     });
+    Route::apiResource('addresses', AddressController::class);
+    // Route::apiResources([
+    //     'addresses' => AddressController::class,
+    // ], ['as' => 'api']);
 });
 
-Route::apiResources([
-    'addresses' => AddressController::class,
-], ['as' => 'api']);
+
